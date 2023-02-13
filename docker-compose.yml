@@ -39,6 +39,7 @@ services:
       MYSQL_HOST: db # Nome do service logo abaixo
       PORT: '3000'
       HOST: store_manager
+      MYSQL_DATABASE: StoreManager
     networks:
       # Conecta esse serviço com a rede que criada
       - store_manager_net
