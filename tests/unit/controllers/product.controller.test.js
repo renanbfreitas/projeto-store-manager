@@ -1,22 +1,25 @@
-const sinon = require("sinon");
+const Sinon = require("sinon");
 const chai = require('chai');
 const sinonChai = require('sinon-chai');
 const { productController } = require("../../../src/controllers");
 const { productService } = require("../../../src/services");
-const { listController } = require("./mocks/product.controller.mock");
+const { listController, resultInsert } = require("./mocks/product.controller.mock");
 
 const { expect } = require('chai');
 chai.use(sinonChai);
 
 describe('Testa a função productController', () => {
+  beforeEach(() => Sinon.restore());
   it('1 - Recuperando a lista de produtos', async () => {
     const req = {};
     const res = {};
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+    res.status = Sinon.stub().returns(res);
+    res.json = Sinon.stub().returns();
 
-    sinon.stub(productService, 'getAllProducts').resolves({type: null, message: listController});
+    Sinon
+      .stub(productService, 'getAllProducts')
+      .resolves({ type: null, message: listController });
 
     await productController.getAllProducts(req, res);
 
@@ -30,14 +33,31 @@ describe('Testa a função productController', () => {
       params: { id: 1 },
     }
 
-    res.status = sinon.stub().returns(res);
-    res.json = sinon.stub().returns();
+    res.status = Sinon.stub().returns(res);
+    res.json = Sinon.stub().returns();
 
     await productController.getProductsById(req, res);
 
-    sinon
+    Sinon
       .stub(productService, 'getProductsById')
       .resolves({ type: null, message: listController[0] })
     expect(res.status).to.have.been.calledWith(200);
+  });
+
+  it('3 - Inserindo um novo produto no BD', async () => {
+    const res = {}
+    const req = {
+      body: { name: "Manopla do Thanos" },
+    }
+    res.status = Sinon.stub().returns(res);
+    res.json = Sinon.stub().returns();
+
+    await productController.requestNewProduct(req, res);
+
+    Sinon
+      .stub(productService, 'createProduct')
+      .resolves({ type: null, message: resultInsert });
+
+    expect(res.status).to.have.been.calledWith(201);
   });
 });

@@ -13,6 +13,14 @@ const listController = [
   }
 ];
 
+const resultInsert = [
+  {
+    "id": 1,
+    "name": "Manopla do Thanos"
+  },
+];
+
 module.exports = {
   listController,
+  resultInsert
 }

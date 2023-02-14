@@ -28,7 +28,12 @@ const listModel = [
   }
 ];
 
+const newProduct = {
+  "name": "Stormbreaker"
+}
+
 module.exports = {
   productsDB,
   listModel,
+  newProduct,
 }

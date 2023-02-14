@@ -1,4 +1,4 @@
-const { idSchema, nameSchema } = require('./schemas');
+const { idSchema, nameSchema, addSalesSchema } = require('./schemas');
 
 const validateId = (id) => {
   const { error } = idSchema.validate(id);
@@ -18,7 +18,21 @@ const validateName = (name) => {
   return { type: null, message: '' };
 };
 
+const validateNewSale = (sale) => {
+  const { error } = addSalesSchema.validate(sale);
+  if (error) {
+    return {
+      type: error.message.includes('greater than')
+        ? 'INVALID_VALUE'
+        : 'MISSING_FIELD',
+      message: error.message,
+    };
+  }
+  return { type: null, message: '' };
+};
+
 module.exports = {
   validateId,
   validateName,
+  validateNewSale,
 };
