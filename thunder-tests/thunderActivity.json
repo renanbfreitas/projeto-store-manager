@@ -93,5 +93,24 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "39a24902-50dd-46ff-83ee-cbea462b5881",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://www.localhost:3000/products/:id",
+    "url": "http://www.localhost:3000/products/:id",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-02-15T16:39:52.926Z",
+    "modified": "2023-02-15T16:46:53.669Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\": 1,\n  \"name\": \"Martelo de Thor\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]
