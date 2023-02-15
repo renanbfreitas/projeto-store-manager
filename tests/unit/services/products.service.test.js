@@ -39,6 +39,7 @@ describe('Testa as implementações da camada do Products-Service', () => {
       const response = await productService.createProduct(validReq)
       expect(response.type).to.equal(null);
     });
+    
     it('5 - Retornando erro na requisição', async () => {
       Sinon.stub(productModel, 'insert').resolves(newItem);
       const response = await productService.createProduct(invalidReq)

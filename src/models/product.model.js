@@ -31,7 +31,15 @@ const insert = async (product) => {
     );
 
     return insertId;
-  };
+};
+
+const update = async (product) => {
+  const [result] = await connection.execute(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [product.name, product.id],
+  );
+  return result;
+};
 
   const deleteProduct = async (id) => {
   const request = connection.execute(
@@ -46,5 +54,6 @@ module.exports = {
   listAll,
   listById,
   insert,
+  update,
   deleteProduct,
 };

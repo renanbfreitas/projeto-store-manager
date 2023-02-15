@@ -7,8 +7,14 @@ const addSalesSchema = Joi.object({
   quantity: Joi.number().integer().min(1).required(),
 });
 
+const updateProductSchema = Joi.object({
+  id: idSchema,
+  name: nameSchema,
+});
+
 module.exports = {
   idSchema,
   nameSchema,
   addSalesSchema,
+  updateProductSchema,
   };
