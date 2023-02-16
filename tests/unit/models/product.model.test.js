@@ -14,7 +14,7 @@ describe('Testa as implementações da camada Model', () => {
       expect(request).to.be.deep.equal(listModel);
     });
 
-    it('2 - Verificando se é possível localizar um carro através do ID', async function () {
+    it('2 - Verificando se é possível localizar um produto através do ID', async function () {
       Sinon.stub(connection, 'execute').resolves([[productsDB[2]]]);
       const request = await productModel.listById(3);
       expect(request).to.be.deep.equal(listModel[2]);
@@ -24,9 +24,20 @@ describe('Testa as implementações da camada Model', () => {
 
 describe('2 - Verificando a implementação de um produto no BD', () => {
     afterEach(() => Sinon.restore());
-    it('Inserindo um produto no BD', async () => {
+    it('1 - Inserindo um produto no BD', async () => {
       Sinon.stub(connection, 'execute').resolves([{ insertId: 1 }]);
       const request = await productModel.insert(newProduct);
       expect(request).to.equal(1);
     });
+
+  describe('3 - Verificando a deleção de um item no BD', () => {
+
+    afterEach(() => Sinon.restore());
+    it('2 - Deletando um produto', async () => {
+      Sinon.stub(connection, "execute").resolves({ affectedRows: 1 });
+
+      const result = await productModel.deleteProduct(productsDB[0].id);
+      expect(result).to.deep.equal({ affectedRows: 1 });
+    });
+  });
   });

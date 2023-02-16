@@ -5,6 +5,7 @@ const sinonChai = require('sinon-chai');
 const { saleController, productController } = require('../../../src/controllers');
 const { salesService } = require('../../../src/services');
 const { listSales } = require('./mocks/sales.controller.mock');
+const { allSalesById } = require('../models/mocks/sales.model.mock');
 chai.use(sinonChai);
 
 describe('Teste de unidade em salesController', () => {
@@ -39,9 +40,11 @@ describe('Teste de unidade em salesController', () => {
 
     Sinon
       .stub(salesService, 'getSalesById')
-      .resolves({ type: null, message: listSales[0] });
+      .resolves({ type: null, message: allSalesById });
 
     expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(allSalesById);
+  });
   });
 
   it('3 - Verificando o retorno de uma requisição inválida', async () => {
@@ -61,4 +64,3 @@ describe('Teste de unidade em salesController', () => {
 
     expect(res.status).to.have.been.calledWith(422);
   });
-});

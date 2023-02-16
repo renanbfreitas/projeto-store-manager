@@ -35,8 +35,18 @@ const listById = async (id) => {
   return request;
 };
 
+const removedSalesRegistry = async (id) => {
+  const request = connection.execute(
+    `DELETE FROM sales
+      WHERE id = ?`,
+    [id],
+  );
+  return request;
+};
+
 module.exports = {
   insert,
   listAll,
   listById,
+  removedSalesRegistry,
 };

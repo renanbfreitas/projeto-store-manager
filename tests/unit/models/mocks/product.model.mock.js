@@ -32,8 +32,20 @@ const newProduct = {
   "name": "Stormbreaker"
 }
 
+const deleteProductsDB = [
+  {
+    "id": 1,
+    "name": "Martelo de Thor"
+  },
+  {
+    "id": 2,
+    "name": "Traje de encolhimento"
+  }
+];
+
 module.exports = {
   productsDB,
   listModel,
   newProduct,
+  deleteProductsDB,
 }

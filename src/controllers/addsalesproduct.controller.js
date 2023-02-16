@@ -11,6 +11,16 @@ const createNewSale = async (req, res) => {
   return res.status(201).json(message);
 };
 
+const removedSales = async (req, res) => {
+  const { id } = req.params;
+  const { type, message } = await salesProductsService.removedSales(id);
+
+  if (type) return res.status(mapError(type)).json({ message });
+
+  return res.status(204).end();
+};
+
 module.exports = {
   createNewSale,
+  removedSales,
 };

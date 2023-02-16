@@ -1,6 +1,6 @@
 const salesService = require('./sales.service');
-const { productModel, salesProductModel } = require('../models');
-const { validateNewSale } = require('./validations/validateInputs');
+const { productModel, salesProductModel, salesModel } = require('../models');
+const { validateNewSale, validateId } = require('./validations/validateInputs');
 const saleModelMaks = require('../helpers/createSale');
 
 const validateProductId = async (ids) => {
@@ -38,6 +38,23 @@ const createNewSale = async (saleInfo) => {
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
 
+const removedSales = async (id) => {
+  const error = validateId(id);
+  if (error.type) return error;
+
+  const validateIfIdExists = await salesModel.listById(id);
+
+  if (!validateIfIdExists || !validateIfIdExists.length) {
+    return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+  }
+
+  await salesModel.removedSalesRegistry(id);
+  await salesProductModel.removedSalesProduct(id);
+
+  return { type: null };
+};
+
 module.exports = {
   createNewSale,
+  removedSales,
 };

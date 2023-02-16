@@ -18,6 +18,16 @@ const insert = async (saleInfo) => {
   return insertId;
 };
 
+const removedSalesProduct = async (id) => {
+  const request = connection.execute(
+    `DELETE FROM sales_products
+      WHERE sale_id = ?`,
+    [id],
+  );
+  return request;
+};
+
 module.exports = {
   insert,
+  removedSalesProduct,
 };
