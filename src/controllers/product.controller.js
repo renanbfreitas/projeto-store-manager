@@ -30,7 +30,7 @@ const requestNewProduct = async (req, res) => {
 const editProductDb = async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
-  const { type, message } = await productService.updateProduct({ id, name });
+  const { type, message } = await productService.updateProduct({ name, id });
   if (type) return res.status(mapError(type)).json({ message });
 
   return res.status(200).json(message);

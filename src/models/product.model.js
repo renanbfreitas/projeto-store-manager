@@ -36,7 +36,7 @@ const insert = async (product) => {
 const update = async (product) => {
   const [result] = await connection.execute(
     'UPDATE products SET name = ? WHERE id = ?',
-    [product.name, product.id],
+    [...Object.values(product)],
   );
   return result;
 };
