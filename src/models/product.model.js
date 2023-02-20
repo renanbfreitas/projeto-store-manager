@@ -48,6 +48,15 @@ const update = async (product) => {
     [id],
   );
   return request;
+  };
+
+  const findByQuery = async (q) => {
+  const [query] = await connection.execute(
+    `SELECT * FROM products
+      WHERE name LIKE ?`,
+    [q],
+  );
+  return query;
 };
 
 module.exports = {
@@ -56,4 +65,5 @@ module.exports = {
   insert,
   update,
   deleteProduct,
+  findByQuery,
 };
